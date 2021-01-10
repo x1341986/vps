@@ -11,3 +11,19 @@ workflows:
     # Run the welcome/run job in its own container
     jobs:
       - welcome/run
+version: 2.1
+executors:
+  my-executor:
+    docker:
+      - image: circleci/ruby:2.5.1-node-browsers
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+
+jobs:
+  my-job:
+    executor: my-executor
+    steps:
+      - run: echo outside the executor
+See the Using Parameters in Executors section of the Reusing Config document for examples of parameterized executors.
+
